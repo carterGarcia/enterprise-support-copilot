@@ -1,6 +1,7 @@
-langchain
 openai
 faiss-cpu
-tiktoken
-streamlit
+numpy
+fastapi
+uvicorn
 python-dotenv
+tiktoken
