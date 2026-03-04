@@ -1,0 +1,10 @@
+VPN Password Reset
+
+To reset your VPN password:
+
+1. Go to the internal password portal.
+2. Authenticate with Microsoft Authenticator.
+3. Select VPN credentials.
+4. Enter a new password.
+
+If you experience issues contact IT support.
