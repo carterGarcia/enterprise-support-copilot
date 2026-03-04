@@ -1,0 +1,10 @@
+Outlook Setup
+
+To set up Outlook on a new device:
+
+1. Download Microsoft Outlook.
+2. Sign in using your corporate email.
+3. Enable multi factor authentication.
+4. Sync mailbox and calendar.
+
+For mobile devices install the Outlook mobile app.
