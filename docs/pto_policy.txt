@@ -1,0 +1,9 @@
+PTO Policy
+
+Employees can request paid time off through the HR portal.
+
+Steps:
+1. Log into the HR self service system.
+2. Navigate to Time Off Requests.
+3. Select dates and submit approval request.
+4. Your manager will receive a notification.
