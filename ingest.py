@@ -1,18 +1,35 @@
-from langchain.document_loaders import TextLoader
-from langchain.vectorstores import FAISS
-from langchain.embeddings import OpenAIEmbeddings
 import os
+import faiss
+import numpy as np
+from openai import OpenAI
+
+client = OpenAI()
 
 documents = []
+doc_texts = []
 
 for file in os.listdir("docs"):
-    loader = TextLoader(f"docs/{file}")
-    documents.extend(loader.load())
+    with open(f"docs/{file}") as f:
+        text = f.read()
+        documents.append(file)
+        doc_texts.append(text)
 
-embeddings = OpenAIEmbeddings()
+embeddings = []
 
-vectorstore = FAISS.from_documents(documents, embeddings)
+for text in doc_texts:
+    response = client.embeddings.create(
+        model="text-embedding-3-small",
+        input=text
+    )
+    embeddings.append(response.data[0].embedding)
 
-vectorstore.save_local("vector_db")
+embeddings = np.array(embeddings).astype("float32")
+
+index = faiss.IndexFlatL2(len(embeddings[0]))
+index.add(embeddings)
+
+faiss.write_index(index, "vector.index")
+
+np.save("docs.npy", doc_texts)
 
 print("Documents embedded successfully")
