@@ -1,5 +1,7 @@
 .env
+.env.*
 *.env
+*.env.*
 .venv/
 vector_db/
 __pycache__/
