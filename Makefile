@@ -1,9 +1,11 @@
 VENV=.venv
+PYTHON?=python3.12
 PY=$(VENV)/bin/python
 PIP=$(VENV)/bin/pip
 
 setup:
-	python3 -m venv $(VENV)
+	$(PYTHON) -m venv $(VENV)
+	$(PIP) install -U pip setuptools wheel
 	$(PIP) install -r requirements.txt
 
 ingest:
