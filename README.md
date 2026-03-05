@@ -1,24 +1,41 @@
-# enterprise-support-copilot
-Setup
+# Enterprise Support Copilot
 
-Create environment
+An employee self service style Copilot that answers IT and HR questions using retrieval augmented generation (RAG).
+
+You provide internal style documentation in `./docs`. The project embeds those docs into a local FAISS vector store and uses an LLM to answer questions grounded in retrieved context.
+
+## What this demonstrates
+- RAG architecture (retrieve relevant context then generate an answer)
+- Embeddings + vector similarity search (FAISS)
+- AI assistant behavior grounded on enterprise documentation
+- Safety basics (local secrets via `.env`, generated artifacts ignored)
+
+## Tech stack
+- Python
+- Streamlit UI
+- LangChain (retrieval and vector store wrapper)
+- OpenAI embeddings + chat completion
+- FAISS local vector database
+
+## Requirements
+- Python 3.11 or 3.12 recommended  
+  Python 3.14 is not supported due to LangChain and Pydantic typing compatibility.
+- An OpenAI API key with billing enabled (set a low monthly limit for safety)
+
+## Project structure
+- `docs/`  
+  Put your support documentation here as `.txt` files.
+- `ingest.py`  
+  Builds the local vector store at `vector_db/`.
+- `app.py`  
+  Streamlit app for querying the knowledge base.
+- `vector_db/`  
+  Generated locally. Do not commit this folder.
+
+## Setup
+
+### Create a virtual environment and install dependencies
+Using Make (recommended):
+
+```bash
 make setup
-
-Set API key
-cp .env.example .env
-Edit .env and set OPENAI_API_KEY
-
-Add documents
-Put .txt files in docs/
-
-Build vector store
-make ingest
-
-Run
-make run
-
-Notes
-Recommended Python 3.11 or 3.12
-Tested on MacOS
-Do not commit .env
-Delete vector_db and rerun ingest if you change docs

@@ -35,7 +35,7 @@ for file in os.listdir("docs"):
 if not docs:
     raise RuntimeError("No documents found in ./docs. Add .txt files and retry.")
 
-embeddings = OpenAIEmbeddings()
+embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
 
 vectorstore = FAISS.from_documents(docs, embeddings)
 vectorstore.save_local("vector_db")
