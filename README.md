@@ -66,7 +66,7 @@ cp .env.example .env
 
 Edit .env and set:
 
-OPENAI_API_KEY=sk-...your key...
+OPENAI_API_KEY=your_openai_key_here
 
 ### 3) Build the vector store
 make ingest
