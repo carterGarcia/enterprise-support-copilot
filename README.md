@@ -2,7 +2,7 @@
 
 An employee self service style Copilot that answers IT and HR questions using retrieval augmented generation (RAG).
 
-Provide internal style documentation in `./docs`. This project embeds those docs into a local FAISS vector store and uses an LLM to answer questions grounded in retrieved context.
+Provide internal style documentation in ./docs. This project embeds those docs into a local FAISS vector store and uses an LLM to answer questions grounded in retrieved context.
 
 ## Demo
 
@@ -27,7 +27,7 @@ Build the local FAISS vector store from docs:
 - Retrieval augmented generation architecture
 - Embeddings and vector similarity search (FAISS)
 - AI assistant behavior grounded on enterprise documentation
-- Basic safety practices (local secrets via `.env`, generated artifacts ignored)
+- Basic safety practices (local secrets via .env, generated artifacts ignored)
 
 ## Tech stack
 - Python
@@ -37,18 +37,61 @@ Build the local FAISS vector store from docs:
 - FAISS local vector database
 
 ## Requirements
-- Python 3.11 or 3.12 recommended  
+- Python 3.11 or 3.12 recommended
   Python 3.14 is not supported due to LangChain and Pydantic typing compatibility.
-- OpenAI API key with billing enabled  
+- OpenAI API key with billing enabled
   Set a low monthly limit for safety.
 
 ## Project structure
-- `docs/` put support documentation here as `.txt` files
-- `ingest.py` builds the local vector store at `vector_db/`
-- `app.py` Streamlit app for querying the knowledge base
-- `vector_db/` generated locally, do not commit
+- docs/ put support documentation here as .txt files
+- ingest.py builds the local vector store at vector_db/
+- app.py Streamlit app for querying the knowledge base
+- vector_db/ generated locally, do not commit
 
 ## Setup
 
-### 1 Create a virtual environment and install dependencies
-Using Make (recommended)
+### 1) Create a virtual environment and install dependencies
+Using Make (recommended):
+
+make setup
+
+If your Python is installed differently:
+
+make setup PYTHON=python3
+
+### 2) Configure your API key
+Create a local .env file from the template:
+
+cp .env.example .env
+
+Edit .env and set:
+
+OPENAI_API_KEY=sk-...your key...
+
+### 3) Build the vector store
+make ingest
+
+### 4) Run the app
+make run
+
+## Usage
+In the Streamlit UI, ask questions like:
+- How do I request PTO?
+- How do I reset my VPN password?
+- How do I set up Outlook on a new device?
+
+If the documentation does not contain the answer, the assistant should respond that it does not know.
+
+## Updating documentation
+If you add or change files in docs/, rebuild the vector store:
+
+rm -rf vector_db
+make ingest
+
+## Security
+- Keep secrets in .env locally. Never commit .env or .env.*
+- If you accidentally expose a key, revoke it immediately and create a new one.
+- vector_db/ is generated locally and should not be pushed to GitHub.
+
+## License
+MIT
