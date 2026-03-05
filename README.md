@@ -50,8 +50,5 @@ Build the local FAISS vector store from docs:
 
 ## Setup
 
-### 1) Create a virtual environment and install dependencies
-Using Make (recommended):
-
-```bash
-make setup
+### 1 Create a virtual environment and install dependencies
+Using Make (recommended)
