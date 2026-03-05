@@ -1,15 +1,24 @@
 # enterprise-support-copilot
-A chatbot that answers internal IT or HR questions using retrieval augmented generation (RAG)
+Setup
 
-Project Stack:
-Python, 
-LangChain, 
-OpenAI or Azure OpenAI, 
-FAISS vector database, 
-Streamlit UI
+Create environment
+make setup
 
-Concepts used:
-embeddings, 
-vector search, 
-RAG architecture, 
-AI assistants for enterprise workflows
+Set API key
+cp .env.example .env
+Edit .env and set OPENAI_API_KEY
+
+Add documents
+Put .txt files in docs/
+
+Build vector store
+make ingest
+
+Run
+make run
+
+Notes
+Recommended Python 3.11 or 3.12
+Tested on MacOS
+Do not commit .env
+Delete vector_db and rerun ingest if you change docs

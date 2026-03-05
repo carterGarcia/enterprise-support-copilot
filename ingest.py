@@ -1,35 +1,43 @@
 import os
-import faiss
-import numpy as np
-from openai import OpenAI
+from dotenv import load_dotenv
+from langchain_community.vectorstores import FAISS
+from langchain_openai import OpenAIEmbeddings
+from langchain.schema import Document
 
-client = OpenAI()
+load_dotenv()
 
-documents = []
-doc_texts = []
+api_key = os.getenv("OPENAI_API_KEY", "").strip()
 
-for file in os.listdir("docs"):
-    with open(f"docs/{file}") as f:
-        text = f.read()
-        documents.append(file)
-        doc_texts.append(text)
-
-embeddings = []
-
-for text in doc_texts:
-    response = client.embeddings.create(
-        model="text-embedding-3-small",
-        input=text
+# Common placeholder patterns from .env.example
+if not api_key or "replace" in api_key.lower() or api_key.lower().startswith("your_"):
+    raise RuntimeError(
+        "OPENAI_API_KEY is not set or still a placeholder.\n"
+        "Fix: copy .env.example to .env, then edit .env and set:\n"
+        "OPENAI_API_KEY=sk-...your real key...\n"
+        "Do not commit .env to git."
     )
-    embeddings.append(response.data[0].embedding)
 
-embeddings = np.array(embeddings).astype("float32")
+if not api_key.startswith("sk-"):
+    raise RuntimeError(
+        "OPENAI_API_KEY does not look like a valid OpenAI key.\n"
+        "It should usually start with 'sk-'. Check your .env value."
+    )
 
-index = faiss.IndexFlatL2(len(embeddings[0]))
-index.add(embeddings)
+docs = []
+for file in os.listdir("docs"):
+    path = os.path.join("docs", file)
+    if not os.path.isfile(path):
+        continue
+    with open(path, "r", encoding="utf-8") as f:
+        text = f.read()
+    docs.append(Document(page_content=text, metadata={"source": file}))
 
-faiss.write_index(index, "vector.index")
+if not docs:
+    raise RuntimeError("No documents found in ./docs. Add .txt files and retry.")
 
-np.save("docs.npy", doc_texts)
+embeddings = OpenAIEmbeddings()
 
-print("Documents embedded successfully")
+vectorstore = FAISS.from_documents(docs, embeddings)
+vectorstore.save_local("vector_db")
+
+print("Saved vectorstore to vector_db")

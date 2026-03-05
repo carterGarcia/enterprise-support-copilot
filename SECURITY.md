@@ -1,0 +1,1 @@
+Never commit keys and to use environment variables.
