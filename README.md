@@ -6,21 +6,22 @@ You provide internal style documentation in `./docs`. The project embeds those d
 
 ## What this demonstrates
 - RAG architecture (retrieve relevant context then generate an answer)
-- Embeddings + vector similarity search (FAISS)
+- Embeddings and vector similarity search (FAISS)
 - AI assistant behavior grounded on enterprise documentation
-- Safety basics (local secrets via `.env`, generated artifacts ignored)
+- Basic safety practices (local secrets via `.env`, generated artifacts ignored)
 
 ## Tech stack
 - Python
 - Streamlit UI
 - LangChain (retrieval and vector store wrapper)
-- OpenAI embeddings + chat completion
+- OpenAI embeddings and chat completion
 - FAISS local vector database
 
 ## Requirements
 - Python 3.11 or 3.12 recommended  
   Python 3.14 is not supported due to LangChain and Pydantic typing compatibility.
-- An OpenAI API key with billing enabled (set a low monthly limit for safety)
+- OpenAI API key with billing enabled  
+  Set a low monthly limit for safety.
 
 ## Project structure
 - `docs/`  
@@ -34,7 +35,7 @@ You provide internal style documentation in `./docs`. The project embeds those d
 
 ## Setup
 
-### Create a virtual environment and install dependencies
+### 1 Create a virtual environment and install dependencies
 Using Make (recommended):
 
 ```bash
