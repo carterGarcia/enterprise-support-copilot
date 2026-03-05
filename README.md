@@ -1,11 +1,11 @@
-# Enterprise Support Copilot
+# Enterprise Support Copilot Chat
 
 An employee self service style Copilot that answers IT and HR questions using retrieval augmented generation (RAG).
 
-You provide internal style documentation in `./docs`. The project embeds those docs into a local FAISS vector store and uses an LLM to answer questions grounded in retrieved context.
+Provide internal style documentation in `./docs`. This project embeds those docs into a local FAISS vector store and uses an LLM to answer questions grounded in retrieved context.
 
-## What this demonstrates
-- RAG architecture (retrieve relevant context then generate an answer)
+## Summary
+- Retrieval Augmented Generation architecture
 - Embeddings and vector similarity search (FAISS)
 - AI assistant behavior grounded on enterprise documentation
 - Basic safety practices (local secrets via `.env`, generated artifacts ignored)
@@ -35,7 +35,7 @@ You provide internal style documentation in `./docs`. The project embeds those d
 
 ## Setup
 
-### 1 Create a virtual environment and install dependencies
+### Create a virtual environment and install dependencies
 Using Make (recommended):
 
 ```bash
